@@ -1,17 +1,28 @@
-//задача 2
-//На ввод поступает три числа: начало ряда, шаг, количество шагов. Выведите на экран все числа полученного ряда. Пр. 1 2 5 → 1, 3, 5, 7, 9
+//Дана ячейка памяти хранящая максимум три числа. При вводе числа если есть пустые ячейки, она заполняется введенным числом. Если пустых ячеек нет - введенное число заменяет наименьшее из уже записанных.
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int start = sc.nextInt();  // начало ряда
-        int step = sc.nextInt();   // шаг
-        int count = sc.nextInt();  // количество шагов
+        int[] memory = new int[3];
+        int count = 0; // Счетчик заполненных ячеек
         
-        for (int i = 0; i < count; i++) {
-            System.out.print(start + i * step);
-            if (i < count - 1) System.out.print(", ");
+        while (sc.hasNextInt()) {
+            int num = sc.nextInt();
+            
+            if (count < 3) {
+                memory[count++] = num;
+            } else {
+                int minIndex = 0;
+                for (int i = 1; i < 3; i++) {
+                    if (memory[i] < memory[minIndex]) {
+                        minIndex = i;
+                    }
+                }
+                memory[minIndex] = num;
+            }
+            
+            System.out.println(Arrays.toString(memory));
         }
     }
-}
